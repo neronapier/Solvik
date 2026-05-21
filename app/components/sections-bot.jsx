@@ -13,7 +13,7 @@ export function Testimonials() {
       name: 'Laura Mendoza',
       city: 'Guadalajara, JAL',
       initials: 'LM',
-      text: 'Pagaba $2,800 de luz cada mes. Con SolarFlex hoy pago $480 y la renta del sistema. Recuperé el espacio en mi presupuesto que no sabía que necesitaba.',
+      text: 'Pagaba $2,800 de luz cada mes. Con Solvik hoy pago $480 y la renta del sistema. Recuperé el espacio en mi presupuesto que no sabía que necesitaba.',
       stat: ['83%', 'menos en luz'],
     },
     {
@@ -37,7 +37,7 @@ export function Testimonials() {
         <SectionHead
           number="08"
           eyebrow="Voces que ya cambiaron de plan"
-          title={<>Familias y negocios que ya <Em>ahorran</Em> con SolarFlex.</>}
+          title={<>Familias y negocios que ya <Em>ahorran</Em> con Solvik.</>}
           subtitle="Más de 12,400 instalaciones activas en 9 estados de México y crecientes en Latam."
         />
 
@@ -98,10 +98,10 @@ export function FAQ() {
   const items = [
     { q: '¿Necesito enganche para empezar?', a: 'No. En el plan de renta mensual empiezas sin enganche y sin compras anticipadas. En el microcrédito hay opciones con $0 de enganche dependiendo de tu perfil; te lo confirmamos en tu cotización.' },
     { q: '¿Qué pasa si me mudo de casa?', a: 'Hay dos rutas: te llevamos el sistema a tu nueva dirección (con un cargo logístico) o transferimos el contrato al siguiente residente. Si ya es tuyo por microcrédito, el equipo te acompaña adonde decidas instalarlo.' },
-    { q: '¿Quién se encarga del mantenimiento?', a: 'Nosotros. En el plan de renta está totalmente incluido. La IA detecta cuándo hay que limpiar, ajustar o reemplazar algo y enviamos a un técnico certificado SolarFlex sin costo extra.' },
+    { q: '¿Quién se encarga del mantenimiento?', a: 'Nosotros. En el plan de renta está totalmente incluido. La IA detecta cuándo hay que limpiar, ajustar o reemplazar algo y enviamos a un técnico certificado Solvik sin costo extra.' },
     { q: '¿Cómo funciona la venta de energía a la red?', a: 'Si generas más de lo que consumes, esa energía se inyecta a la red de CFE bajo un contrato de Net Metering o Net Billing. La app te muestra cuánto vendes en tiempo real y lo refleja en tu próximo recibo.' },
     { q: '¿Cuánto tarda la instalación?', a: 'Para un sistema residencial promedio, entre 1 y 3 días hábiles tras la visita técnica. Coordinamos contigo permisos, trámites con CFE y el alta del medidor bidireccional.' },
-    { q: '¿La app tiene costo?', a: 'No. La app SolarFlex es gratuita para clientes y futuros clientes. Sin anuncios, sin compras dentro de la app. Funciona en iOS y Android.' },
+    { q: '¿La app tiene costo?', a: 'No. La app Solvik es gratuita para clientes y futuros clientes. Sin anuncios, sin compras dentro de la app. Funciona en iOS y Android.' },
     { q: '¿Y si dejo de tener servicio o me quedo sin internet?', a: 'El sistema sigue funcionando sin internet — solo se acumulan las lecturas para sincronizar después. Y si CFE corta el servicio, las baterías opcionales mantienen energizado lo esencial.' },
   ];
   return (
@@ -201,7 +201,7 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-5 sm:px-8">
         <div className="border-b border-[color:color-mix(in_oklab,var(--ink-inverse)_10%,transparent)] pb-12">
           <span className="display-lg text-[48px] xs:text-[64px] sm:text-[96px] md:text-[128px] lg:text-[180px] xl:text-[200px] block leading-[.9] tracking-tightest">
-            Solar<Em>Flex</Em>.
+            Sol<Em>vik</Em>.
           </span>
         </div>
 
@@ -245,7 +245,7 @@ export function Footer() {
         </div>
 
         <div className="mt-16 pt-7 border-t border-[color:color-mix(in_oklab,var(--ink-inverse)_10%,transparent)] flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-[12px] on-ink-faint">
-          <div>© 2026 SolarFlex Energy SAPI de CV · Hecho con sol en Ciudad de México</div>
+          <div>© 2026 Solvik Energy SAPI de CV · Hecho con sol en Ciudad de México</div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-2 font-mono tracking-[.16em] text-[10.5px]">
             <span>CONUEE</span><span>UL · LISTED</span><span>ISO 9001:2015</span><span>CRE</span>
           </div>

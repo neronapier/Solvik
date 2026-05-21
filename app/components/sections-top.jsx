@@ -19,7 +19,7 @@ export function Logo({ light, onInk }) {
     textClass = 'text-[var(--ink)]';
   }
   return (
-    <a href="#top" className="flex items-center gap-2.5 group" aria-label="SolarFlex inicio">
+    <a href="#top" className="flex items-center gap-2.5 group" aria-label="Solvik inicio">
       <span className="relative inline-flex h-9 w-9 items-center justify-center" style={{ borderRadius: 'calc(var(--radius) * .5)', ...boxStyle }}>
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
           <circle cx="12" cy="12" r="3.2" />
@@ -27,7 +27,7 @@ export function Logo({ light, onInk }) {
         </svg>
       </span>
       <span className={`text-[19px] tracking-tight ${textClass}`} style={{ fontFamily: 'var(--display-font), serif', letterSpacing: '-0.01em' }}>
-        SolarFlex
+        Solvik
       </span>
     </a>
   );
@@ -140,7 +140,7 @@ export function Hero() {
         <div className="relative max-w-7xl mx-auto px-5 sm:px-8">
           <Reveal>
             <div className="flex items-center justify-between">
-              <Eyebrow>SolarFlex · Edición 04 · 2026</Eyebrow>
+              <Eyebrow>Solvik · Edición 04 · 2026</Eyebrow>
               <span className="section-num hidden sm:inline">Renta · Microcrédito · IA</span>
             </div>
           </Reveal>
@@ -220,7 +220,7 @@ export function Hero() {
                 <span className="relative inline-flex h-2 w-2 text-emerald-400 pulse-dot">
                   <span className="relative inline-block h-2 w-2 rounded-full bg-emerald-400"></span>
                 </span>
-                +12,400 hogares ya ahorran con SolarFlex
+                +12,400 hogares ya ahorran con Solvik
               </div>
             </Reveal>
             <Reveal delay={1}>
@@ -301,7 +301,7 @@ export function ProblemSolution() {
           number="01"
           eyebrow="El problema · la solución"
           title={<>La energía solar debería ser <Em>para todos</Em>.</>}
-          subtitle="Los paneles solares cuestan mucho de contado, y por eso casi nadie los aprovecha. En SolarFlex eliminamos esa barrera: renta mensual o microcrédito, y empiezas a ahorrar desde el primer mes."
+          subtitle="Los paneles solares cuestan mucho de contado, y por eso casi nadie los aprovecha. En Solvik eliminamos esa barrera: renta mensual o microcrédito, y empiezas a ahorrar desde el primer mes."
         />
 
         <div className="mt-20 grid md:grid-cols-3 gap-0 border-y border-[var(--rule)]">

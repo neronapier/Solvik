@@ -119,13 +119,13 @@ export function AISection() {
               number="04"
               eyebrow="Inteligencia artificial integrada"
               title={<>Tu sistema <Em>piensa</Em> <span style={{ color: '#EAD18C' }}>por ti.</span></>}
-              subtitle="Cada panel SolarFlex está conectado a una capa de IA que aprende del clima, tu consumo y el estado del equipo. Tú sólo ves el ahorro."
+              subtitle="Cada panel Solvik está conectado a una capa de IA que aprende del clima, tu consumo y el estado del equipo. Tú sólo ves el ahorro."
               dark
             />
             <Reveal delay={3}>
               <div className="mt-10 inline-flex items-center gap-3 rounded-full bg-white/[.05] border border-white/10 px-4 py-2.5 text-white/80 text-[13px] tracking-tight">
                 <span className="h-1.5 w-1.5 rounded-full bg-[var(--sun)] animate-pulse"></span>
-                SolarFlex AI · entrenada con +18M lecturas / día
+                Solvik AI · entrenada con +18M lecturas / día
               </div>
             </Reveal>
           </div>

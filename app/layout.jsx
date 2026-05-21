@@ -1,7 +1,7 @@
 import './globals.css';
 
 export const metadata = {
-  title: 'SolarFlex — Energía solar en tu hogar, sin pagar todo de golpe',
+  title: 'Solvik — Energía solar en tu hogar, sin pagar todo de golpe',
   description:
     'Renta paneles solares o accede a microcréditos flexibles. Ahorra desde el primer mes y gestiona todo desde tu celular con inteligencia artificial.',
 };
