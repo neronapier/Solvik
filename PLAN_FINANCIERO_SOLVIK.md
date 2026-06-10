@@ -1,7 +1,7 @@
 # Plan Financiero — Solvik (MVP)
 ### Construye · Modelo económico
 *Energía solar residencial accesible: renta, microcrédito e IA — pilotaje en Guadalajara, 24 meses.*
-*Moneda: MXN. Fecha base: 2026. Documento alineado a la plantilla "Iteración Financiera" (8 hojas).*
+*Moneda: **pesos mexicanos (MXN)**, todas las cifras sin IVA salvo indicación. Fecha base: 2026. Documento alineado a la plantilla "Iteración Financiera" (8 hojas).*
 
 ---
 
@@ -174,8 +174,29 @@ PE = Costos fijos / MC ponderado = 307,568 / 19,150 ≈ 16.1 unidades/mes
 
 ## 5. Criterio 2 — Unit economics (CAC, LTV, razón unitaria)  *(/5)*
 
-### 5.1 CAC y LTV (sobre 2 años)
-| Producto | CAC | Margen/venta | Ventas/cliente (2a) | **LTV** | **LTV/CAC** | Interpretación |
+### 5.1 CAC — desglose detallado de adquisición  *(hoja Unidades Económicas)*
+Gasto **mensual** de marketing y ventas por producto. CAC = gasto total del producto ÷ clientes adquiridos en el mes.
+
+| Concepto de adquisición | FV Microcrédito | FV Contado | Calentador |
+|---|--:|--:|--:|
+| Creación de marca | 6,000 | 2,500 | 1,500 |
+| Sitio web (mantenimiento) | 2,000 | — | — |
+| Campañas promocionales | 8,000 | 4,000 | 3,000 |
+| Herramientas de automatización (mkt) | 3,000 | — | — |
+| Publicidad digital (Meta/Google) | 28,000 | 14,000 | 8,000 |
+| Producción de videos | 3,000 | — | — |
+| Regalos y muestras | — | — | 1,000 |
+| Comisiones de venta | 18,000 | 9,000 | 4,000 |
+| Optimización SEO | 2,600 | 1,500 | 1,000 |
+| Influencers locales | 4,000 | — | — |
+| Participación en ferias / eventos | 4,000 | — | — |
+| Otros | 3,000 | 3,000 | 1,000 |
+| **Gasto total de adquisición / mes** | **81,600** | **34,000** | **19,500** |
+| Clientes adquiridos / mes | 12 | 5 | 13 |
+| **CAC** | **6,800** | **6,800** | **1,500** |
+
+### 5.2 LTV (sobre 2 años) y razón unitaria
+| Producto | CAC | Margen/venta | Ventas/cliente (2a) | **LTV** | **LTV/CAC** | Interpretación (rúbrica) |
 |---|--:|--:|--:|--:|--:|---|
 | Sistema FV Microcrédito | 6,800 | 38,000 | 1.0 | 38,000 | **5.6×** | Rentable, líquido y escalable |
 | Sistema FV Contado | 6,800 | 25,000 | 1.0 | 25,000 | **3.7×** | Rentable, líquido y escalable |
@@ -183,14 +204,37 @@ PE = Costos fijos / MC ponderado = 307,568 / 19,150 ≈ 16.1 unidades/mes
 
 Regla de la plantilla: razón > 3 ⇒ "rentable, líquido y escalable". **Los tres superan 3×.**
 
-> **Palancas:** cross-sell calentador↔FV (sube ventas/cliente), referidos (CAC≈0; meta 25% de leads al mes 12), e ingresos de cola no contabilizados aquí (venta de energía a CFE + mantenimiento) = upside.
+> **Palancas para mejorar LTV/CAC:** cross-sell calentador↔FV (sube ventas/cliente), referidos (CAC≈0; meta 25% de leads al mes 12), e ingresos de cola no contabilizados aquí (venta de energía a CFE + mantenimiento) = upside.
 
-### 5.2 Renta / HaaS — modelo recurrente *(modelado aparte)*
+### 5.3 Renta / HaaS — modelo recurrente *(modelado aparte)*
 ⚠️ **Hallazgo:** el gancho del landing **"$899/mes" NO recupera** un sistema de 4 kWp ($74 K): payback ~95 meses. Solo es viable para un micro-sistema (~1.5 kWp) o como tarifa promocional.
 
 HaaS bien dimensionado (4 kWp): renta **$1,790/mes**, servicio $150/mes, contrato 72 m → contribución $1,640/mes, **payback del activo ≈ 45 meses**, LTV(2a) $39,360 → **LTV/CAC 5.8×**.
 
 > La renta es atractiva pero **intensiva en capital** (inmoviliza $74 K/contrato). Por eso el MVP prioriza microcrédito (asset-light) y la renta escala en Fase 2 con deuda dedicada (§7). **Corregir el "$899" del landing.**
+
+### 5.4 Costeo basado en actividades (ABC)  *(hoja Costeo y análisis de rent.)*
+Asignamos el costo de conversión total ($307,568/mes = sueldos+cargas $198,450 + CIF con depreciación $109,118) a los **dos productos físicos** (el sistema FV cuesta lo mismo se venda a crédito o contado) usando **drivers de actividad** justificados:
+
+| Driver de asignación | Sistema FV | Calentador | Justificación |
+|---|--:|--:|---|
+| **Sueldos** (horas-esfuerzo) | 75% | 25% | El FV requiere diseño, trámites CFE e instalación mayor; el calentador es media jornada y sin permiso |
+| **CIF** (bodega, transporte, vehículo) | 70% | 30% | El FV ocupa más espacio de bodega y maniobras de transporte |
+
+Costo unitario y margen **a volumen piloto (mes 12: 17 FV + 13 calentadores/mes):**
+
+| Concepto | Sistema FV | Calentador |
+|---|--:|--:|
+| Material directo (BOM)/unidad | 74,000 | 7,800 |
+| Conversión asignada/mes | 225,220 | 82,348 |
+| Conversión/unidad | 13,248 | 6,334 |
+| **Costo unitario total (absorción)** | **87,248** | **14,134** |
+| Precio | 112,000 | 13,500 |
+| **Margen por absorción** | **+24,752** | **−634** |
+| Punto de equilibrio del producto | 5.9 u/mes | 14.4 u/mes |
+
+> **Hallazgo ABC clave:** a volumen piloto, el **calentador no cubre su overhead asignado** (margen por absorción −$634), aunque su **margen de contribución sí es positivo (+$5,700/u)**. Es decir, el calentador *ayuda* a pagar los fijos pero no puede cargarlos solo: por eso el FV debe absorber el grueso del overhead y el PE combinado es 16 u/mes (§4.2).
+> **A escala (mes 24: 35 FV + 25 calentadores/mes)** el costo unitario baja a **$80,435** y **$11,094**, y **ambos quedan rentables** (margen +$31,565 y +$2,406). La conclusión estratégica: el calentador es un producto de **contribución y volumen** que se vuelve plenamente rentable al crecer la operación.
 
 ---
 
