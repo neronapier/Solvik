@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<link href="fonts-local.css" rel="stylesheet" />
+<style>
+  :root{
+    --brand:#2E6850; --brand-deep:#143E30; --brand-200:#B0CCBE;
+    --sun:#D6B264; --sun-300:#EAD18C; --sun-deep:#B68A3C;
+    --bg:#FAF7EE; --bone:#F4EEDE; --ink:#0E1512; --ink-soft:#5F5C53;
+    --midnight:#0A1F18; --rule:#E4DCCB;
+    --display:'Instrument Serif', Georgia, serif;
+    --sans:'Manrope', system-ui, sans-serif;
+    --mono:'DM Mono', monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  @page{ size:1280px 720px; margin:0; }
+  html,body{ background:#222; font-family:var(--sans); color:var(--ink); -webkit-font-smoothing:antialiased; }
+  .slide{
+    position:relative; width:1280px; height:720px; overflow:hidden;
+    background:var(--bg); page-break-after:always; break-after:page;
+  }
+  .slide:last-child{ page-break-after:auto; }
+  /* top chrome */
+  .chrome{ position:absolute; top:42px; left:64px; right:64px; display:flex; align-items:center; justify-content:space-between; z-index:5; }
+  .wordmark{ display:flex; align-items:center; gap:10px; }
+  .wordmark .mk{ width:30px; height:30px; border-radius:8px; background:var(--ink); color:var(--bg); display:flex; align-items:center; justify-content:center; }
+  .wordmark .mk.on-dark{ background:rgba(255,255,255,.12); color:#F8F4E6; }
+  .wordmark b{ font-family:var(--display); font-size:21px; letter-spacing:-.01em; font-weight:400; }
+  .pgnum{ font-family:var(--mono); font-size:12px; letter-spacing:.18em; color:var(--ink-soft); }
+  .tag{ font-family:var(--mono); font-size:12px; letter-spacing:.24em; text-transform:uppercase; color:var(--brand); }
+  .tag.s{ color:var(--ink-soft); }
+  .body{ position:absolute; left:64px; right:64px; top:120px; bottom:64px; }
+  h1{ font-family:var(--display); font-weight:400; line-height:.98; letter-spacing:-.02em; }
+  h2{ font-family:var(--display); font-weight:400; line-height:1.0; letter-spacing:-.018em; }
+  .em{ font-style:italic; }
+  .soft{ color:var(--ink-soft); }
+  .lead{ font-size:21px; line-height:1.5; color:var(--ink-soft); }
+  .num-xl{ font-family:var(--display); font-size:120px; line-height:.9; color:var(--brand); }
+  .rule{ height:1px; background:var(--rule); }
+  .pill{ display:inline-flex; align-items:center; gap:8px; border:1px solid var(--rule); border-radius:999px; padding:7px 16px; font-size:13px; font-weight:600; }
+  .chip{ font-family:var(--mono); font-size:11px; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); }
+  .footer-note{ position:absolute; left:64px; bottom:40px; font-family:var(--mono); font-size:11px; letter-spacing:.14em; color:var(--ink-soft); text-transform:uppercase; }
+
+  /* dark slides */
+  .slide.dark{ background:var(--midnight); color:#F2ECDD; }
+  .slide.dark .lead, .slide.dark .soft{ color:rgba(242,236,221,.72); }
+  .slide.dark .tag{ color:var(--sun-300); }
+  .slide.dark .tag.s{ color:rgba(242,236,221,.6); }
+  .slide.dark .pgnum{ color:rgba(242,236,221,.55); }
+  .slide.dark .wordmark b{ color:#F8F4E6; }
+  .slide.dark .rule{ background:rgba(255,255,255,.14); }
+  .slide.dark .num-xl{ color:var(--sun-300); }
+  .glow{ position:absolute; border-radius:999px; pointer-events:none; }
+
+  /* cards */
+  .grid3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:20px; }
+  .grid2{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .card{ border:1px solid var(--rule); border-radius:20px; padding:28px; background:#fff; }
+  .slide.dark .card{ background:#0E2A20; border-color:rgba(255,255,255,.1); }
+  .card .k{ font-family:var(--display); font-size:40px; color:var(--brand); line-height:1; }
+  .slide.dark .card .k{ color:var(--sun-300); }
+  .card h3{ font-family:var(--display); font-weight:400; font-size:25px; margin-top:18px; letter-spacing:-.01em; }
+  .card p{ font-size:15.5px; line-height:1.5; color:var(--ink-soft); margin-top:8px; }
+  .slide.dark .card p{ color:rgba(242,236,221,.7); }
+  .check{ color:var(--brand); font-weight:800; }
+  ul.clean{ list-style:none; }
+  ul.clean li{ display:flex; gap:12px; align-items:flex-start; padding:11px 0; border-bottom:1px solid var(--rule); font-size:17px; }
+  ul.clean li:last-child{ border-bottom:0; }
+  .slide.dark ul.clean li{ border-color:rgba(255,255,255,.1); }
+  .dot{ width:8px;height:8px;border-radius:99px;background:var(--brand); margin-top:8px; flex:0 0 auto;}
+  .sun-text{ color:var(--sun-deep); }
+  .slide.dark .sun-text{ color:var(--sun-300); }
+  .big-quote{ font-family:var(--display); font-size:34px; line-height:1.22; letter-spacing:-.01em; }
+  .kpi{ font-family:var(--display); font-size:60px; line-height:1; color:var(--brand); }
+  .slide.dark .kpi{ color:var(--sun-300); }
+  .kpi-l{ font-size:14px; color:var(--ink-soft); margin-top:8px; }
+  .slide.dark .kpi-l{ color:rgba(242,236,221,.7); }
+  .placeholder{ color:var(--sun-deep); font-style:italic; }
+  .mk-svg{ width:18px;height:18px; }
+  .bar{ display:flex; align-items:flex-end; gap:14px; height:200px; }
+  .bar .b{ flex:1; border-radius:10px 10px 0 0; background:linear-gradient(180deg,var(--brand-200),var(--brand)); position:relative; }
+  .bar .b span{ position:absolute; top:-26px; left:0; right:0; text-align:center; font-family:var(--mono); font-size:12px; color:var(--ink-soft); }
+  .bar .b small{ position:absolute; bottom:-26px; left:0; right:0; text-align:center; font-size:12px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<!-- ░░░ 1 · PORTADA ░░░ -->
+<section class="slide dark">
+  <div class="glow" style="width:760px;height:520px; right:-120px; top:-160px; background:radial-gradient(closest-side, rgba(214,178,100,.30), transparent 70%);"></div>
+  <div class="glow" style="width:620px;height:520px; left:-140px; bottom:-180px; background:radial-gradient(closest-side, rgba(46,104,80,.45), transparent 70%);"></div>
+  <div class="chrome">
+    <div class="wordmark">
+      <span class="mk on-dark">
+        <svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg>
+      </span>
+      <b>Solvik</b>
+    </div>
+    <span class="pgnum">PITCH DECK · 2026</span>
+  </div>
+  <div class="body" style="display:flex; flex-direction:column; justify-content:center;">
+    <span class="tag">Emprendimiento de impacto · Energía limpia accesible</span>
+    <h1 style="font-size:92px; margin-top:26px; max-width:1000px;">Energía solar <span class="em" style="color:var(--sun-300)">en tu hogar,</span><br/>sin pagar todo de golpe.</h1>
+    <p class="lead" style="margin-top:30px; max-width:680px;">Democratizamos el acceso a la energía solar en México con <b style="color:#F2ECDD">renta, microcrédito e inteligencia artificial.</b> Ahorra desde el primer mes.</p>
+  </div>
+  <div class="footer-note">Equipo <span class="placeholder">[Equipo X]</span> · Construye · Tecnológico de Monterrey</div>
+</section>
+
+<!-- ░░░ 2 · QUIÉN / PROPÓSITO ░░░ -->
+<section class="slide">
+  <div class="chrome">
+    <div class="wordmark"><span class="mk"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">01 — QUIÉN</span>
+  </div>
+  <div class="body" style="display:grid; grid-template-columns:1.15fr 1fr; gap:60px; align-items:center;">
+    <div>
+      <span class="tag">Quién vive la problemática</span>
+      <p class="big-quote" style="margin-top:24px;">"Pagaba <span class="sun-text">$2,800 de luz</span> cada mes y en verano la tienda se quedaba sin energía con los apagones. El sol me sobra... pero los paneles costaban una fortuna."</p>
+      <p class="lead" style="margin-top:24px;">— Doña Rosa, dueña de una tienda de abarrotes. Como ella, <b style="color:var(--ink)">millones de familias y micronegocios</b> en México viven con recibos de luz que no paran de subir.</p>
+    </div>
+    <div class="card" style="background:var(--bone); border:none;">
+      <span class="chip">Nuestro propósito</span>
+      <h2 style="font-size:34px; margin-top:18px;">El sol no debería llegar <span class="em sun-text">con recargo.</span></h2>
+      <p style="margin-top:16px; font-size:17px; line-height:1.55; color:var(--ink-soft);">Existimos para que cualquier hogar mexicano pueda ahorrar con energía limpia, <b style="color:var(--ink)">sin pagar una fortuna por adelantado.</b></p>
+      <div class="rule" style="margin:22px 0;"></div>
+      <span class="chip">Valores</span>
+      <p style="margin-top:10px; font-size:16px; line-height:1.6;">Accesibilidad · Transparencia · Sostenibilidad</p>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ 3 · PROBLEMA ░░░ -->
+<section class="slide">
+  <div class="chrome">
+    <div class="wordmark"><span class="mk"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">02 — QUÉ PROBLEMA</span>
+  </div>
+  <div class="body">
+    <span class="tag">El problema · contexto y evidencias</span>
+    <h2 style="font-size:50px; margin-top:18px; max-width:980px;">La energía solar ya es rentable. <span class="soft em">Pero sigue fuera del alcance de la mayoría.</span></h2>
+    <div class="grid3" style="margin-top:42px;">
+      <div class="card">
+        <div class="k">$80–150k</div>
+        <h3>La barrera es el enganche, no el sol</h3>
+        <p>Un sistema residencial cuesta entre <b>$80,000 y $150,000 MXN</b> de contado <span class="placeholder">[verificar]</span>. La mayoría no puede pagarlo de golpe.</p>
+      </div>
+      <div class="card">
+        <div class="k">↑ cada año</div>
+        <h3>Tarifas de CFE al alza</h3>
+        <p>Las tarifas suben año con año y la tarifa <b>DAC</b> castiga a quien más consume. El recibo asfixia a familias y micronegocios.</p>
+      </div>
+      <div class="card">
+        <div class="k">&lt; 1%</div>
+        <h3>Penetración mínima</h3>
+        <p>Menos del <b>1%</b> de los hogares en México tiene paneles <span class="placeholder">[verificar fuente]</span>, pese a ser uno de los países con más irradiación solar del mundo.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:34px;">El resultado: quien menos puede pagar la luz cara es justo quien <b style="color:var(--ink)">no puede acceder</b> a la solución.</p>
+  </div>
+</section>
+
+<!-- ░░░ 4 · SOLUCIÓN ░░░ -->
+<section class="slide dark">
+  <div class="glow" style="width:680px;height:520px; right:-160px; top:-200px; background:radial-gradient(closest-side, rgba(214,178,100,.22), transparent 70%);"></div>
+  <div class="chrome">
+    <div class="wordmark"><span class="mk on-dark"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">03 — CÓMO LO SOLUCIONO</span>
+  </div>
+  <div class="body">
+    <span class="tag">La solución</span>
+    <h2 style="font-size:50px; margin-top:18px; max-width:1000px; color:#F2ECDD;">Quitamos la barrera de entrada. <span class="em sun-text">Tú solo ves el ahorro.</span></h2>
+    <div class="grid3" style="margin-top:42px;">
+      <div class="card">
+        <div class="k">01</div>
+        <h3 style="color:#F2ECDD">Renta mensual</h3>
+        <p>Sin enganche y con mantenimiento incluido. Pago fijo, cancela cuando quieras. Empiezas a ahorrar desde el primer mes.</p>
+      </div>
+      <div class="card">
+        <div class="k">02</div>
+        <h3 style="color:#F2ECDD">Microcrédito</h3>
+        <p>El equipo es tuyo desde el día uno, a plazos accesibles de 12 a 48 meses con aprobación rápida.</p>
+      </div>
+      <div class="card">
+        <div class="k">03</div>
+        <h3 style="color:#F2ECDD">IA que lo cuida 24/7</h3>
+        <p>Mantenimiento predictivo, limpieza inteligente y optimización de la venta de excedentes a CFE. Todo desde una app gratuita.</p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:34px; color:rgba(242,236,221,.8);">Renta o microcrédito + inteligencia artificial = energía solar al alcance de cualquier hogar.</p>
+  </div>
+</section>
+
+<!-- ░░░ 5 · PROPUESTA DE VALOR ░░░ -->
+<section class="slide">
+  <div class="chrome">
+    <div class="wordmark"><span class="mk"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">04 — DIFERENCIADOR</span>
+  </div>
+  <div class="body" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
+    <div>
+      <span class="tag">¿Qué nos hace únicos?</span>
+      <h2 style="font-size:46px; margin-top:18px;">No vendemos paneles. <span class="em sun-text">Vendemos ahorro sin fricción.</span></h2>
+      <p class="lead" style="margin-top:22px;">La competencia te pide pagar todo de contado o un crédito rígido. Solvik combina <b style="color:var(--ink)">acceso flexible + IA + acompañamiento</b> en un solo producto.</p>
+    </div>
+    <div>
+      <ul class="clean">
+        <li><span class="dot"></span><div><b>Sin enganche</b> — entras desde $0 con el plan de renta.</div></li>
+        <li><span class="dot"></span><div><b>Mantenimiento incluido</b> — técnicos certificados sin costo extra.</div></li>
+        <li><span class="dot"></span><div><b>IA predictiva</b> — detecta fallas antes de que pasen.</div></li>
+        <li><span class="dot"></span><div><b>Optimiza tu venta a CFE</b> — más ingresos por tus excedentes.</div></li>
+        <li><span class="dot"></span><div><b>App gratuita</b> — sin anuncios ni compras ocultas.</div></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ 6 · PROTOTIPO ░░░ -->
+<section class="slide">
+  <div class="chrome">
+    <div class="wordmark"><span class="mk"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">05 — CÓMO SE VE</span>
+  </div>
+  <div class="body" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
+    <div>
+      <span class="tag">Prototipo</span>
+      <h2 style="font-size:46px; margin-top:18px;">Ya es real: <span class="em sun-text">sitio y simulador funcionando.</span></h2>
+      <p class="lead" style="margin-top:22px;">Construimos un producto digital funcional: una landing con <b style="color:var(--ink)">calculadora de ahorro</b> en tiempo real y el diseño de la <b style="color:var(--ink)">app móvil</b> (iOS y Android) para monitorear producción, ahorros y la venta a la red.</p>
+      <div style="display:flex; gap:10px; margin-top:26px; flex-wrap:wrap;">
+        <span class="pill">Landing + calculadora</span>
+        <span class="pill">App móvil</span>
+        <span class="pill">Monitoreo con IA</span>
+      </div>
+    </div>
+    <div class="card" style="background:var(--bone); border:none; padding:0; overflow:hidden;">
+      <div style="background:var(--ink); color:#F2ECDD; padding:26px 28px;">
+        <span class="chip" style="color:rgba(242,236,221,.6)">App Solvik · demo</span>
+        <div style="margin-top:10px; font-family:var(--display); font-size:46px; color:var(--sun-300);">18.4 <span style="font-size:18px; font-family:var(--sans); color:rgba(242,236,221,.7)">kWh hoy</span></div>
+        <div style="font-size:13px; color:var(--sun-300); margin-top:4px;">+12% vs ayer</div>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--rule);">
+        <div style="background:#fff; padding:22px;"><span class="chip">Ahorro mes</span><div style="font-family:var(--display); font-size:30px; margin-top:6px;">$1,284</div></div>
+        <div style="background:#fff; padding:22px;"><span class="chip">CO₂ evitado</span><div style="font-family:var(--display); font-size:30px; margin-top:6px;">924 <span style="font-size:14px;">kg/año</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ 7 · VALIDACIÓN ░░░ -->
+<section class="slide">
+  <div class="chrome">
+    <div class="wordmark"><span class="mk"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">06 — VALIDACIÓN</span>
+  </div>
+  <div class="body">
+    <span class="tag">¿Qué pruebas tenemos de que funciona?</span>
+    <h2 style="font-size:48px; margin-top:18px;">La gente <span class="em sun-text">sí quiere</span> el sol — cuando se lo hacemos accesible.</h2>
+    <div class="grid3" style="margin-top:40px;">
+      <div class="card" style="background:var(--bone); border:none;">
+        <div class="kpi"><span class="placeholder">[120]</span></div>
+        <div class="kpi-l">entrevistas y encuestas a hogares y micronegocios <span class="placeholder">[su dato]</span></div>
+      </div>
+      <div class="card" style="background:var(--bone); border:none;">
+        <div class="kpi"><span class="placeholder">[78%]</span></div>
+        <div class="kpi-l">elegiría renta/microcrédito antes que pagar de contado <span class="placeholder">[su dato]</span></div>
+      </div>
+      <div class="card" style="background:var(--bone); border:none;">
+        <div class="kpi"><span class="placeholder">[XX]</span></div>
+        <div class="kpi-l">familias en lista de espera / piloto comprometido <span class="placeholder">[su dato]</span></div>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:34px;"><b style="color:var(--ink)">Reemplacen los corchetes con sus datos reales del curso:</b> entrevistas, encuestas, cartas de intención, pilotos o pre-registros. Esa evidencia es lo que más suma puntos.</p>
+  </div>
+</section>
+
+<!-- ░░░ 8 · MODELO DE NEGOCIO ░░░ -->
+<section class="slide dark">
+  <div class="glow" style="width:620px;height:480px; left:-160px; bottom:-180px; background:radial-gradient(closest-side, rgba(46,104,80,.4), transparent 70%);"></div>
+  <div class="chrome">
+    <div class="wordmark"><span class="mk on-dark"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">07 — MODELO</span>
+  </div>
+  <div class="body">
+    <span class="tag">¿Cómo generamos valor (y dinero)?</span>
+    <h2 style="font-size:48px; margin-top:18px; color:#F2ECDD;">Ingresos recurrentes <span class="em sun-text">alineados con el ahorro del cliente.</span></h2>
+    <div class="grid2" style="margin-top:40px;">
+      <div>
+        <ul class="clean">
+          <li><span class="dot" style="background:var(--sun-300)"></span><div><b style="color:#F2ECDD">Renta mensual</b> — ingreso recurrente y predecible (MRR).</div></li>
+          <li><span class="dot" style="background:var(--sun-300)"></span><div><b style="color:#F2ECDD">Intereses del microcrédito</b> — financiamiento del equipo a plazos.</div></li>
+          <li><span class="dot" style="background:var(--sun-300)"></span><div><b style="color:#F2ECDD">Mantenimiento y servicios</b> — planes y reemplazos.</div></li>
+          <li><span class="dot" style="background:var(--sun-300)"></span><div><b style="color:#F2ECDD">Optimización de venta a la red</b> — comisión sobre el excedente vendido a CFE.</div></li>
+        </ul>
+      </div>
+      <div class="card">
+        <span class="chip" style="color:rgba(242,236,221,.6)">Lógica de unidad · ejemplo</span>
+        <div style="margin-top:14px; display:flex; justify-content:space-between; font-size:17px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.1);"><span class="soft">Recibo de luz típico</span><b style="color:#F2ECDD">$2,200 / mes</b></div>
+        <div style="display:flex; justify-content:space-between; font-size:17px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,.1);"><span class="soft">Renta Solvik</span><b style="color:#F2ECDD">$899 / mes</b></div>
+        <div style="display:flex; justify-content:space-between; font-size:17px; padding:10px 0;"><span class="soft">Ahorro del cliente</span><b class="sun-text">≈ $1,300 / mes</b></div>
+        <p style="margin-top:14px; font-size:14px; color:rgba(242,236,221,.6);">Ganamos cuando el cliente gana. Cifras ilustrativas <span class="placeholder">[ajustar con su modelo]</span>.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ 9 · MERCADO Y VISIÓN ░░░ -->
+<section class="slide">
+  <div class="chrome">
+    <div class="wordmark"><span class="mk"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">08 — MERCADO Y VISIÓN</span>
+  </div>
+  <div class="body" style="display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;">
+    <div>
+      <span class="tag">Mercado</span>
+      <h2 style="font-size:44px; margin-top:18px;">Un mercado enorme y <span class="em sun-text">apenas tocado.</span></h2>
+      <div class="bar" style="margin-top:50px;">
+        <div class="b" style="height:55%"><span class="placeholder">[TAM]</span><small>México</small></div>
+        <div class="b" style="height:78%"><span class="placeholder">[SAM]</span><small>Hogares aptos</small></div>
+        <div class="b" style="height:100%; background:linear-gradient(180deg,var(--sun-300),var(--sun-deep));"><span class="placeholder">[SOM]</span><small>Año 1–2</small></div>
+      </div>
+      <p style="margin-top:40px; font-size:14px; color:var(--ink-soft);">Dimensionen TAM/SAM/SOM con sus cifras <span class="placeholder">[completar]</span>.</p>
+    </div>
+    <div class="card" style="background:var(--midnight); color:#F2ECDD; border:none;">
+      <span class="chip" style="color:var(--sun-300)">Nuestra visión</span>
+      <h2 style="font-size:38px; margin-top:18px; color:#F2ECDD;">Que la energía limpia sea la opción <span class="em sun-text">default</span> de cada hogar en Latinoamérica.</h2>
+      <p style="margin-top:18px; font-size:17px; line-height:1.55; color:rgba(242,236,221,.72);">Empezamos en México y escalamos a la región: mismo problema, mismo sol, misma necesidad de acceso justo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ░░░ 10 · MILESTONES ░░░ -->
+<section class="slide">
+  <div class="chrome">
+    <div class="wordmark"><span class="mk"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">09 — MILESTONES</span>
+  </div>
+  <div class="body">
+    <span class="tag">¿En qué etapa estamos? · hacia dónde vamos</span>
+    <h2 style="font-size:48px; margin-top:18px;">De prototipo a <span class="em sun-text">impacto a escala.</span></h2>
+    <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:0; margin-top:54px; position:relative;">
+      <div class="rule" style="position:absolute; top:6px; left:6%; right:6%;"></div>
+      <div style="padding-right:18px;"><div style="width:14px;height:14px;border-radius:99px;background:var(--brand);"></div><div class="chip" style="margin-top:18px;">HOY</div><p style="margin-top:8px; font-size:16px; line-height:1.45;">Prototipo funcional + validación con usuarios.</p></div>
+      <div style="padding-right:18px;"><div style="width:14px;height:14px;border-radius:99px;background:var(--brand-200);"></div><div class="chip" style="margin-top:18px;">6 MESES</div><p style="margin-top:8px; font-size:16px; line-height:1.45;">Piloto con <span class="placeholder">[XX]</span> hogares y primeras instalaciones.</p></div>
+      <div style="padding-right:18px;"><div style="width:14px;height:14px;border-radius:99px;background:var(--brand-200);"></div><div class="chip" style="margin-top:18px;">12 MESES</div><p style="margin-top:8px; font-size:16px; line-height:1.45;">App en tiendas + alianza financiera para el microcrédito.</p></div>
+      <div><div style="width:14px;height:14px;border-radius:99px;background:var(--sun);"></div><div class="chip" style="margin-top:18px;">24 MESES</div><p style="margin-top:8px; font-size:16px; line-height:1.45;">Escala nacional y primer mercado fuera de México.</p></div>
+    </div>
+    <p class="lead" style="margin-top:54px;">Ajusten fechas y metas <span class="placeholder">[a su realidad]</span>. Lo importante: mostrar avance y un siguiente paso claro.</p>
+  </div>
+</section>
+
+<!-- ░░░ 11 · EQUIPO ░░░ -->
+<section class="slide">
+  <div class="chrome">
+    <div class="wordmark"><span class="mk"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">10 — EQUIPO</span>
+  </div>
+  <div class="body">
+    <span class="tag">Quiénes lo hacemos posible</span>
+    <h2 style="font-size:48px; margin-top:18px;">Un equipo que <span class="em sun-text">cree</span> en energía justa.</h2>
+    <div class="grid3" style="margin-top:42px;">
+      <div class="card">
+        <div style="width:64px;height:64px;border-radius:99px;background:var(--brand);color:#F8F4E6;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:24px;">AA</div>
+        <h3 style="margin-top:18px;"><span class="placeholder">[Nombre]</span></h3>
+        <p><span class="placeholder">[Rol · ej. CEO / Negocio]</span></p>
+      </div>
+      <div class="card">
+        <div style="width:64px;height:64px;border-radius:99px;background:var(--brand);color:#F8F4E6;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:24px;">BB</div>
+        <h3 style="margin-top:18px;"><span class="placeholder">[Nombre]</span></h3>
+        <p><span class="placeholder">[Rol · ej. Producto / Tech]</span></p>
+      </div>
+      <div class="card">
+        <div style="width:64px;height:64px;border-radius:99px;background:var(--brand);color:#F8F4E6;display:flex;align-items:center;justify-content:center;font-family:var(--display);font-size:24px;">CC</div>
+        <h3 style="margin-top:18px;"><span class="placeholder">[Nombre]</span></h3>
+        <p><span class="placeholder">[Rol · ej. Operaciones / Impacto]</span></p>
+      </div>
+    </div>
+    <p class="lead" style="margin-top:34px;">Agreguen foto, nombre, rol y una línea de por qué cada quién es la persona indicada para resolver esto.</p>
+  </div>
+</section>
+
+<!-- ░░░ 12 · CALL TO ACTION ░░░ -->
+<section class="slide dark">
+  <div class="glow" style="width:760px;height:520px; right:-120px; bottom:-200px; background:radial-gradient(closest-side, rgba(214,178,100,.28), transparent 70%);"></div>
+  <div class="glow" style="width:560px;height:460px; left:-160px; top:-160px; background:radial-gradient(closest-side, rgba(46,104,80,.4), transparent 70%);"></div>
+  <div class="chrome">
+    <div class="wordmark"><span class="mk on-dark"><svg class="mk-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="3.2"/><path d="M12 3v2.5M12 18.5V21M3 12h2.5M18.5 12H21M5.6 5.6 7.4 7.4M16.6 16.6l1.8 1.8M5.6 18.4 7.4 16.6M16.6 7.4l1.8-1.8"/></svg></span><b>Solvik</b></div>
+    <span class="pgnum">11 — CALL TO ACTION</span>
+  </div>
+  <div class="body" style="display:flex; flex-direction:column; justify-content:center;">
+    <span class="tag">Para qué · nuestra visión de cambio</span>
+    <h1 style="font-size:72px; margin-top:24px; max-width:1000px; color:#F2ECDD;">El sol ya es de todos.<br/><span class="em sun-text">Hagamos que el ahorro también lo sea.</span></h1>
+    <p class="lead" style="margin-top:28px; max-width:680px; color:rgba(242,236,221,.8);">Buscamos <b style="color:#F2ECDD">aliados, mentoría y un primer piloto</b> para llevar energía solar accesible a las familias que más lo necesitan.</p>
+    <div style="display:flex; gap:14px; margin-top:38px;">
+      <span class="pill" style="border-color:rgba(255,255,255,.3); color:#F2ECDD; background:var(--sun); border:none; color:var(--ink); font-size:15px; padding:12px 22px;">Súmate al piloto</span>
+      <span class="pill" style="border-color:rgba(255,255,255,.3); color:#F2ECDD;">hola@solvik.mx · <span class="placeholder">[contacto]</span></span>
+    </div>
+  </div>
+  <div class="footer-note" style="color:rgba(242,236,221,.5)">Solvik · Energía solar en tu hogar, sin pagar todo de golpe.</div>
+</section>
+
+</body>
+</html>
