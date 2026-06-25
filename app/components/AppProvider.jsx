@@ -13,7 +13,6 @@ export const TWEAK_DEFAULTS = {
   showHeroStats: true,
   showGrain: true,
   showCalculator: true,
-  videoAutoplay: true,
   italicAccents: true,
 };
 
@@ -91,6 +90,11 @@ export function AppProvider({ children }) {
       main.classList.remove('density-editorial','density-standard','density-compact');
       main.classList.add(`density-${tweaks.density}`);
     }
+
+    // Enable color transitions only for the brief swap window (see .theming in globals.css).
+    root.classList.add('theming');
+    const t = setTimeout(() => root.classList.remove('theming'), 450);
+    return () => clearTimeout(t);
   }, [tweaks]);
 
   const [quoteOpen, setQuoteOpen] = useState(false);

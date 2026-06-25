@@ -87,11 +87,6 @@ export function SolarTweaks() {
         value={tweaks.showCalculator}
         onChange={(v) => setTweak('showCalculator', v)}
       />
-      <TweakToggle
-        label="Autoplay video"
-        value={tweaks.videoAutoplay}
-        onChange={(v) => setTweak('videoAutoplay', v)}
-      />
     </TweaksPanel>
   );
 }

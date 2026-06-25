@@ -1,7 +1,10 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useId } from 'react';
 import { useApp } from './AppProvider';
+
+// ─── Shared validators ───────────────────────────────────────────────────────
+export const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
 // ─── Reveal-on-scroll ────────────────────────────────────────────────────────
 export function useReveal() {
@@ -70,7 +73,7 @@ export function SectionHead({ number, eyebrow, title, subtitle, dark = false, al
             </span>
           )}
           {number && <span className={`h-px w-10 ${dark ? 'bg-white/30' : 'bg-[var(--rule)]'}`}></span>}
-          {eyebrow && <span className={`section-num ${dark ? '' : ''}`} style={dark ? { color: 'rgba(255,255,255,.6)' } : null}>{eyebrow}</span>}
+          {eyebrow && <span className="section-num" style={dark ? { color: 'rgba(255,255,255,.6)' } : null}>{eyebrow}</span>}
         </div>
       </Reveal>
       <Reveal delay={1}>
@@ -108,11 +111,15 @@ export function Em({ children }) {
 
 // ─── Form field ──────────────────────────────────────────────────────────────
 export function Field({ label, error, children, full }) {
+  const errId = useId();
+  const child = React.isValidElement(children) && error
+    ? React.cloneElement(children, { 'aria-invalid': true, 'aria-describedby': errId })
+    : children;
   return (
     <label className={`block ${full ? 'sm:col-span-2' : ''}`}>
       <span className="block text-sm font-semibold text-[var(--ink)] mb-1.5">{label}</span>
-      {children}
-      {error && <span className="block mt-1 text-xs text-red-600 font-medium">{error}</span>}
+      {child}
+      {error && <span id={errId} role="alert" className="block mt-1 text-xs text-red-600 font-medium">{error}</span>}
     </label>
   );
 }

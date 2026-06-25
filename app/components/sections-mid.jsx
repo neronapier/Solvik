@@ -16,7 +16,7 @@ export function Products() {
       desc: 'Máxima eficiencia. Generan energía por ambas caras, ideales para techos con buena reflexión.',
       badge: 'Más popular',
       specs: [['Potencia', 'Hasta 540 W'], ['Garantía', '25 años'], ['Eficiencia', '+15% extra']],
-      img: '/assets/product-bifacial.png',
+      img: '/assets/product-bifacial.webp',
     },
     {
       key: 'mono',
@@ -25,7 +25,7 @@ export function Products() {
       desc: 'La opción confiable. Excelente relación costo-beneficio para hogares de cualquier tamaño.',
       badge: 'Mejor valor',
       specs: [['Potencia', 'Hasta 450 W'], ['Garantía', '20 años'], ['Instalación', '1 día']],
-      img: '/assets/product-monofacial.png',
+      img: '/assets/product-monofacial.webp',
     },
     {
       key: 'water',
@@ -34,7 +34,7 @@ export function Products() {
       desc: 'Reduce hasta 80% tu gasto en gas. Agua caliente todo el día, sin contaminar.',
       badge: 'Para hogares grandes',
       specs: [['Capacidad', '150–300 L'], ['Ahorro gas', 'Hasta 80%'], ['Sin tanque', 'Eléctrico']],
-      img: '/assets/product-calentador.png',
+      img: '/assets/product-calentador.webp',
     },
   ];
 

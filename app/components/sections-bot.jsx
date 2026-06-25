@@ -2,9 +2,12 @@
 
 import React, { useState } from 'react';
 import { useApp } from './AppProvider';
-import { Btn, Em, Eyebrow, Reveal, SectionHead } from './ui';
+import { Btn, Em, Eyebrow, Reveal, SectionHead, isValidEmail } from './ui';
 import { I } from './icons';
 import { Logo } from './sections-top';
+
+// TODO: reemplazar con el número real de WhatsApp de Solvik (formato internacional, sin signos).
+const WHATSAPP_URL = 'https://wa.me/525500000000';
 
 // ─── Testimonials ────────────────────────────────────────────────────────────
 export function Testimonials() {
@@ -166,7 +169,7 @@ export function FinalCTA() {
                 <Btn variant="sun" size="xl" onClick={() => openQuote()}>
                   Solicita tu cotización gratis <I.arrow size={18} />
                 </Btn>
-                <a href="https://wa.me/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-6 h-14 rounded-full bg-[color:color-mix(in_oklab,var(--ink-inverse)_7%,transparent)] hover:bg-[color:color-mix(in_oklab,var(--ink-inverse)_15%,transparent)] backdrop-blur border border-[color:color-mix(in_oklab,var(--ink-inverse)_30%,transparent)] on-ink font-semibold tracking-tight transition">
+                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-6 h-14 rounded-full bg-[color:color-mix(in_oklab,var(--ink-inverse)_7%,transparent)] hover:bg-[color:color-mix(in_oklab,var(--ink-inverse)_15%,transparent)] backdrop-blur border border-[color:color-mix(in_oklab,var(--ink-inverse)_30%,transparent)] on-ink font-semibold tracking-tight transition">
                   Hablar por WhatsApp
                 </a>
               </div>
@@ -214,7 +217,7 @@ export function Footer() {
 
             <div className="mt-8 max-w-sm">
               <div className="section-num" style={{ color: 'color-mix(in oklab, var(--ink-inverse) 55%, transparent)' }}>Newsletter · consejos para ahorrar luz</div>
-              <form className="mt-3 flex bg-[color:color-mix(in_oklab,var(--ink-inverse)_6%,transparent)] border border-[color:color-mix(in_oklab,var(--ink-inverse)_15%,transparent)] rounded-full p-1" onSubmit={(e) => { e.preventDefault(); if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) setOk(true); }}>
+              <form className="mt-3 flex bg-[color:color-mix(in_oklab,var(--ink-inverse)_6%,transparent)] border border-[color:color-mix(in_oklab,var(--ink-inverse)_15%,transparent)] rounded-full p-1" onSubmit={(e) => { e.preventDefault(); if (isValidEmail(email)) setOk(true); }}>
                 <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="tu@correo.com" className="flex-1 bg-transparent on-ink placeholder:on-ink-mute px-4 outline-none text-sm" />
                 <button className="bg-[var(--sun)] hover:opacity-90 text-[var(--ink)] text-sm font-semibold px-4 rounded-full transition-opacity">Suscribirme</button>
               </form>

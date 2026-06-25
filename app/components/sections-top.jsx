@@ -111,7 +111,7 @@ function HeroVisual({ aspect = '4 / 5', minimal = false }) {
   return (
     <div className="relative overflow-hidden" style={{ borderRadius: 'var(--radius-lg)', aspectRatio: aspect, background: '#1A1F2A' }}>
       <img
-        src="/assets/hero-home.png"
+        src="/assets/hero-home.webp"
         alt="Casa con paneles solares en hora dorada"
         className="absolute inset-0 w-full h-full object-cover"
         loading="eager"
@@ -131,8 +131,10 @@ function HeroVisual({ aspect = '4 / 5', minimal = false }) {
 }
 
 export function Hero() {
-  const { scrollTo, tweaks } = useApp();
+  const { scrollTo, openQuote, tweaks } = useApp();
   const layout = tweaks.heroLayout || 'cinematic';
+  // The calculator can be toggled off; fall back to the quote modal so the CTA never dead-ends.
+  const goCalc = () => (tweaks.showCalculator === false ? openQuote() : scrollTo('calculadora'));
 
   if (layout === 'editorial') {
     return (
@@ -163,7 +165,7 @@ export function Hero() {
                 Renta paneles solares o accede a microcréditos flexibles. Ahorra desde el primer mes y gestiona todo desde tu celular con inteligencia artificial.
               </p>
               <div className="mt-7 flex flex-col sm:flex-row gap-3">
-                <Btn variant="ink" size="xl" onClick={() => scrollTo('calculadora')}>Calcula tu ahorro <I.arrow size={16} /></Btn>
+                <Btn variant="ink" size="xl" onClick={goCalc}>Calcula tu ahorro <I.arrow size={16} /></Btn>
                 <Btn variant="outlineSoft" size="xl" onClick={() => scrollTo('como-funciona')}>Ver cómo funciona</Btn>
               </div>
               <TrustList compact className="mt-8" />
@@ -194,7 +196,7 @@ export function Hero() {
             </Reveal>
             <Reveal delay={3}>
               <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <Btn variant="ink" size="xl" onClick={() => scrollTo('calculadora')}>Calcula tu ahorro <I.arrow size={16} /></Btn>
+                <Btn variant="ink" size="xl" onClick={goCalc}>Calcula tu ahorro <I.arrow size={16} /></Btn>
                 <Btn variant="outlineSoft" size="xl" onClick={() => scrollTo('como-funciona')}>Ver cómo funciona</Btn>
               </div>
             </Reveal>
@@ -236,7 +238,7 @@ export function Hero() {
             </Reveal>
             <Reveal delay={3}>
               <div className="mt-9 flex flex-col sm:flex-row gap-3">
-                <Btn variant="sun" size="xl" onClick={() => scrollTo('calculadora')}>
+                <Btn variant="sun" size="xl" onClick={goCalc}>
                   Calcula tu ahorro <I.arrow size={18} />
                 </Btn>
                 <Btn variant="outlineLight" size="xl" onClick={() => scrollTo('como-funciona')}>
