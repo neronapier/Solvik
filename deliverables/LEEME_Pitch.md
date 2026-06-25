@@ -5,9 +5,13 @@ Esta carpeta contiene lo necesario para la tarea **Construye | Pitch Deck** (2 e
 ## Archivos
 | Archivo | Qué es |
 |---|---|
-| **`Solvik_PitchDeck.pdf`** | El pitch deck listo para presentar (12 diapositivas, 16:9). **Renómbrenlo a `PitchDeck_EquipoX.pdf`** antes de subir. |
+| **`Solvik_PitchDeck.pptx`** | El pitch deck **editable en PowerPoint / Keynote / Google Slides** (12 diapositivas, 16:9). Aquí completan los `[corchetes]` y agregan sus fotos. **Renómbrenlo a `PitchDeck_EquipoX.pptx`** antes de subir. |
+| **`Solvik_PitchDeck.pdf`** | El mismo deck en PDF, listo para presentar sin editar. |
 | **`Solvik_Guion_Video_3min.md`** | Guión cronometrado para grabar el video de ≤3 min. |
-| `deck.html` + `fonts-local.css` + `fonts/` | Fuente editable del deck (HTML). Edítenlo y vuelvan a exportar si quieren cambios. |
+| `build_pptx.py` | Script que genera el `.pptx` (por si quieren regenerarlo). |
+| `deck.html` + `fonts-local.css` + `fonts/` | Versión HTML del deck (origen del PDF). |
+
+> Tipografías del PPTX: usa **Georgia** (títulos) y **Calibri** (texto), disponibles en cualquier PowerPoint. Si quieren el look editorial original, instalen *Instrument Serif* y *Manrope* y cámbienlas en la pestaña Diseño.
 
 ## ✅ Antes de entregar: reemplacen los `[corchetes en cursiva dorada]`
 El deck tiene marcadores que **deben** completar con datos reales del curso:
